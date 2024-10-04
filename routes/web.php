@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryAPIController;
+use App\Http\Controllers\ProductAPIController;
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::apiResource('/api/category', CategoryAPIController::class);
+Route::apiResource('/api/product', ProductAPIController::class);
