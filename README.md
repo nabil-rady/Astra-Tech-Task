@@ -4,7 +4,7 @@ This is an API online store with CRUD functionality for products and categories 
 
 ## How to run the project
 
-Clone the repo, then install the dependencies using `composer install`, make sure you have PHP >= 8.2 installed. Then, execute `php artisan migrate --seed`. This is will do the migration as well as seed the database with some dummy data for testing purposes. This also creates an admin user with email `example@example.com` and password `12345678`.
+Clone the repo, then install the dependencies using `composer install`, make sure you have PHP >= 8.2 installed. Then, execute `composer run setup`. This is will setup the .env file, do the migration and seed the database with some dummy data for testing purposes. This also creates an admin user with email `example@example.com` and password `12345678`.
 
 After that you can serve the application usign `php artisan serve`.
 
