@@ -20,6 +20,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        return response()->json(['message' => 'Forbidden'], 403);
+        return response()->json(['message' => 'Forbidden'], 401);
     }
 }

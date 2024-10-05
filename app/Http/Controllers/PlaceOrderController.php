@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use App\Models\Product;
 
+use OpenApi\Attributes as OA;
+
 class PlaceOrderController extends Controller implements HasMiddleware
 {
     public static function middleware()
@@ -19,9 +21,54 @@ class PlaceOrderController extends Controller implements HasMiddleware
         return [new Middleware('auth:sanctum')];
     }
 
-    /**
-     * Handle the incoming request.
-     */
+
+    #[OA\Post(
+        path: "/api/order",
+        operationId: "createOrder",
+        description: "Creates an order and returns it, needs authentication",
+        tags: ['Orders'],
+        security: [
+            [
+                'sanctum' => [],
+            ]
+        ]
+    )]
+    #[OA\RequestBody(
+        required: true,
+        content: [
+            'application/json' => new OA\MediaType(
+                mediaType: "application/json",
+                schema: new OA\Schema(
+                    properties: [
+                        new OA\Property(
+                            property: "products",
+                            type: "array",
+                            items: new OA\Items(
+                                type: "object",
+                                properties: [
+                                    new OA\Property(
+                                        property: "id",
+                                        type: "integer",
+                                        example: 1
+                                    ),
+                                    new OA\Property(
+                                        property: "quantity",
+                                        type: "integer",
+                                        example: 2
+                                    ),
+                                ],
+                                required: ["id", "quantity"]
+                            )
+                        )
+                    ],
+                    required: ["title", "image", "description", "price", "quantity", "category_id"]
+                )
+            )
+        ]
+    )]
+    #[OA\Response(response: 201, description: "Successfully created order")]
+    #[OA\Response(response: 401, description: "Unauthorized")]
+    #[OA\Response(response: 422, description: "Bad request")]
     public function __invoke(PlaceOrderRequest $request)
     {
 
