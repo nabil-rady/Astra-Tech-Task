@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\AdminMiddleware;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class CategoryAPIController extends Controller
+class CategoryAPIController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return [new Middleware('auth:sanctum', only: ['store', 'update', 'delete']), new Middleware(AdminMiddleware::class, only: ['store', 'update', 'destroy'])];
+    }
+
     /**
      * Display a listing of the resource.
      */
