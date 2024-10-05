@@ -15,4 +15,11 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'orders_products')
+            ->withPivot('quantity')
+            ->withTimestamps();
+    }
 }
