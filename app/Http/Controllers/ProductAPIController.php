@@ -37,7 +37,7 @@ class ProductAPIController extends Controller implements HasMiddleware
         path: "/api/product",
         operationId: "createProduct",
         tags: ['Products'],
-        description: "Creates a new product and returns it, needs authentication",
+        description: "Creates a new product and returns it, needs admin authorization",
         security: [
             [
                 'sanctum' => [],
@@ -89,8 +89,12 @@ class ProductAPIController extends Controller implements HasMiddleware
         ]
     )]
     #[OA\Response(response: 201, description: "Successfully created category")]
-    #[OA\Response(response: 401, description: "Unauthorized")]
     #[OA\Response(response: 422, description: "Bad request")]
+    #[OA\Response(response: 401, description: "Unauthenticated")]
+    #[OA\Response(
+        response: 403,
+        description: "Unauthorized for non admins"
+    )]
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -134,7 +138,7 @@ class ProductAPIController extends Controller implements HasMiddleware
         path: "/api/product/{id}",
         operationId: "updateProduct",
         tags: ['Products'],
-        description: "Updates a product and returns it, needs authentication",
+        description: "Updates a product and returns it, needs admin authorization",
         security: [
             [
                 'sanctum' => [],
@@ -203,11 +207,15 @@ class ProductAPIController extends Controller implements HasMiddleware
     )]
     #[OA\Response(
         response: 401,
-        description: "Unauthorized"
+        description: "Unauthenticated"
     )]
     #[OA\Response(
         response: 422,
         description: "Bad request"
+    )]
+    #[OA\Response(
+        response: 403,
+        description: "Unauthorized for non admins"
     )]
     public function update(Request $request, Product $product)
     {
@@ -230,7 +238,7 @@ class ProductAPIController extends Controller implements HasMiddleware
         path: "/api/product/{id}",
         operationId: "deleteProduct",
         tags: ['Products'],
-        description: "Deletes a product, needs authentication",
+        description: "Deletes a product, needs admin authorization",
         security: [
             [
                 'sanctum' => [],
@@ -256,7 +264,11 @@ class ProductAPIController extends Controller implements HasMiddleware
     )]
     #[OA\Response(
         response: 401,
-        description: "Unauthorized"
+        description: "Unauthenticated"
+    )]
+    #[OA\Response(
+        response: 403,
+        description: "Unauthorized for non admins"
     )]
     public function destroy(Product $product)
     {

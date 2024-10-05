@@ -37,7 +37,7 @@ class CategoryAPIController extends Controller implements HasMiddleware
     #[OA\Post(
         path: "/api/category",
         operationId: "createCategory",
-        description: "Creates a new category and returns it, needs authentication",
+        description: "Creates a new category and returns it, needs admin authorization",
         tags: ['Categories'],
         security: [
             [
@@ -69,8 +69,12 @@ class CategoryAPIController extends Controller implements HasMiddleware
         ]
     )]
     #[OA\Response(response: 201, description: "Successfully created category")]
-    #[OA\Response(response: 401, description: "Unauthorized")]
     #[OA\Response(response: 422, description: "Bad request")]
+    #[OA\Response(response: 401, description: "Unauthorized")]
+    #[OA\Response(
+        response: 403,
+        description: "Unauthorized for non admins"
+    )]
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -112,7 +116,7 @@ class CategoryAPIController extends Controller implements HasMiddleware
         path: "/api/category/{id}",
         operationId: "updateCategory",
         tags: ['Categories'],
-        description: "Updates a category and returns it, needs authentication",
+        description: "Updates a category and returns it, needs admin authorization",
         security: [
             [
                 'sanctum' => [],
@@ -159,12 +163,16 @@ class CategoryAPIController extends Controller implements HasMiddleware
         description: "Category not found"
     )]
     #[OA\Response(
-        response: 401,
-        description: "Unauthorized"
-    )]
-    #[OA\Response(
         response: 422,
         description: "Bad request"
+    )]
+    #[OA\Response(
+        response: 401,
+        description: "Unauthenticated"
+    )]
+    #[OA\Response(
+        response: 403,
+        description: "Unauthorized for non admins"
     )]
     public function update(Request $request, Category $category)
     {
@@ -182,7 +190,7 @@ class CategoryAPIController extends Controller implements HasMiddleware
         path: "/api/category/{id}",
         operationId: "deleteCategory",
         tags: ['Categories'],
-        description: "Deletes a category, needs authentication",
+        description: "Deletes a category, needs admin authorization",
         security: [
             [
                 'sanctum' => [],
@@ -208,7 +216,11 @@ class CategoryAPIController extends Controller implements HasMiddleware
     )]
     #[OA\Response(
         response: 401,
-        description: "Unauthorized"
+        description: "Unauthenticated"
+    )]
+    #[OA\Response(
+        response: 403,
+        description: "Unauthorized for non admins"
     )]
     public function destroy(Category $category)
     {

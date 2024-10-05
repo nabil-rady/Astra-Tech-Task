@@ -20,6 +20,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        return response()->json(['message' => 'Forbidden'], 401);
+        return response()->json(['message' => 'Forbidden, only admins can access this endpoint'], 403);
     }
 }

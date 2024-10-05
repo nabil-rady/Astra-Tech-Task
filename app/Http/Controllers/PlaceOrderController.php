@@ -67,7 +67,7 @@ class PlaceOrderController extends Controller implements HasMiddleware
         ]
     )]
     #[OA\Response(response: 201, description: "Successfully created order")]
-    #[OA\Response(response: 401, description: "Unauthorized")]
+    #[OA\Response(response: 401, description: "Unauthenticated")]
     #[OA\Response(response: 422, description: "Bad request")]
     public function __invoke(PlaceOrderRequest $request)
     {
