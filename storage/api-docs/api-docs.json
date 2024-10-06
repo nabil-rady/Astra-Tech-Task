@@ -590,6 +590,28 @@
                     }
                 ]
             }
+        },
+        "/api/my-orders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "description": "Returns orders made by the authenticated user",
+                "operationId": "myOrders",
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
     },
     "components": {
