@@ -59,7 +59,7 @@ class CategoryAPIController extends Controller implements HasMiddleware
                         new OA\Property(
                             property: "image",
                             type: "string",
-                            example: "/404.png"
+                            example: "http://localhost:8000/404.png"
                         )
                     ],
                     required: ["title", "image"]
