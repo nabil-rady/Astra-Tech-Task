@@ -77,7 +77,7 @@ class CategoryAPIController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required|string|min:3|max:255',
+            'title' => 'required|string|min:3|max:255|unique:categories,title',
             'image' => 'required|url',
         ]);
 
@@ -176,7 +176,7 @@ class CategoryAPIController extends Controller implements HasMiddleware
     public function update(Request $request, Category $category)
     {
         $data = $request->validate([
-            'title' => 'string|min:3|max:255',
+            'title' => 'string|min:3|max:255|unique:categories,title',
             'image' => 'url',
         ]);
 
