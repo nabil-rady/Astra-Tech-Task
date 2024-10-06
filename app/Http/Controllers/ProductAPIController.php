@@ -7,7 +7,6 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-
 use OpenApi\Attributes as OA;
 
 class ProductAPIController extends Controller implements HasMiddleware

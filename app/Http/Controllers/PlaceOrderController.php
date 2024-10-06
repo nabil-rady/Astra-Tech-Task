@@ -8,10 +8,8 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
 use App\Models\Order;
 use App\Models\Product;
-
 use OpenApi\Attributes as OA;
 
 class PlaceOrderController extends Controller implements HasMiddleware

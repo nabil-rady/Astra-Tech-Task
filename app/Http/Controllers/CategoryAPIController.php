@@ -7,7 +7,6 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-
 use OpenApi\Attributes as OA;
 
 class CategoryAPIController extends Controller implements HasMiddleware
